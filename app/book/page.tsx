@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { getall } from "@/lib/book"; // sửa lại đúng path của bạn
 
@@ -40,11 +40,13 @@ export default function BookPage() {
                     key={book.id}
                     className="bg-white rounded-2xl shadow hover:shadow-lg transition overflow-hidden border border-zinc-100"
                 >
-                    <img
+                    <Link href={`/book/${book.id}`}>
+                        <img
                         src={book.coverImage}
                         alt={book.title}
-                        className="w-full h-64 object-cover"
-                    />
+                        className="w-full h-64 object-cover"/>
+                    </Link>
+
 
                     <div className="p-4">
                         <h3 className="font-semibold text-lg line-clamp-2">
