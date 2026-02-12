@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { login } from "@/lib/auth";
 import { useRouter } from "next/navigation";
-
+import { useAuth } from "@/context/AuthContext";
 
 export default function LoginPage() {
     const router = useRouter();
+    const { refreshUser } = useAuth();
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -16,6 +17,9 @@ export default function LoginPage() {
 
         try {
             await login(username, password);
+
+            await refreshUser(); // cập nhật user vào context
+
             router.push("/");
         } catch (err) {
             alert("Login failed");
@@ -28,7 +32,9 @@ export default function LoginPage() {
                 onSubmit={handleLogin}
                 className="w-96 p-8 bg-white shadow rounded-lg"
             >
-                <h2 className="text-2xl font-bold mb-6 text-center">Đăng nhập</h2>
+                <h2 className="text-2xl font-bold mb-6 text-center">
+                    Đăng nhập
+                </h2>
 
                 <input
                     type="text"
